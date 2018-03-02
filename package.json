@@ -1,0 +1,17 @@
+{
+  "name": "nodeapi",
+  "version": "1.0.0",
+  "description": "APIs for my really cool hack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "mitch ruebush",
+  "license": "MIT",
+  "dependencies": {
+    "restify": "^6.3.4"
+  }
+}
