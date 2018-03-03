@@ -1,6 +1,14 @@
 const errors = require('restify-errors');
+const config = require('../config');
 
 var profiledb = require('../testUsers');
+
+const options = {
+	// Initialization Options
+};
+  
+const pgp = require('pg-promise')(options);
+const db = pgp(config.db.uri);
 
 module.exports = function(server) {
 
@@ -24,6 +32,19 @@ module.exports = function(server) {
 	server.get('/users', (req, res, next) => {
 		res.send(profiledb.users);
 		next();
+	});
+
+	server.get('/usersdb', (req, res, next) => {
+		db.any('select * from users')
+			.then(function (data) {
+			res.status(200)
+				.json({
+				data: data,
+				});
+			})
+			.catch(function (err) {
+			return next(err);
+			});
 	});
 
 	// Get a single user by id
@@ -94,3 +115,4 @@ module.exports = function(server) {
 		  }		
 	});
  };    
+

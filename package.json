@@ -4,7 +4,9 @@
   "description": "APIs for my really cool hack",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo 'No testing going on here'",
+    "dbsetup": "psql -f setupdb.sql"
   },
   "keywords": [
     "api"
@@ -13,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.5",
+    "pg-promise": "^5.9.7",
     "restify": "^6.3.4",
     "restify-errors": "^6.0.0",
     "restify-plugins": "^1.6.0"
