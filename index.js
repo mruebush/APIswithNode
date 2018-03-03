@@ -1,29 +1,21 @@
-var restify = require('restify');
+const restify = require('restify');
+const restifyPlugins = require('restify').plugins;
 
-function respond(req, res, next) {
-  res.send('hello ' + req.params.name);
-  next();
-}
+const config = require('./config');
 
-var server = restify.createServer();
-server.get('/hello/:name', respond);
-server.head('/hello/:name', respond);
-
-server.get('/', function(req, res, next) {
-    res.send('home')
-    return next();
+const server = restify.createServer({
+    name: config.name,
+    version: config.version,
 });
-  
-server.post('/foo', function(req, res, next) {
-      req.someData = 'foo';
-      return next();
-    },
-    function(req, res, next) {
-      res.send(req.someData);
-      return next();
-    }
-);
 
-server.listen(8080, function() {
-  console.log('%s listening at %s', server.name, server.url);
+// Load some standard Restify plugins to auto wire some things for you
+server.use(restifyPlugins.jsonBodyParser({ mapParams: true }));
+server.use(restifyPlugins.acceptParser(server.acceptable));
+server.use(restifyPlugins.queryParser({ mapParams: true }));
+server.use(restifyPlugins.fullResponse());
+
+// Start the server
+server.listen(config.port, () => {
+    require('./routes')(server);  
+    console.log('%s is listening at %s', server.name, server.url);
 });

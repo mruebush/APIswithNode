@@ -12,6 +12,9 @@
   "author": "mitch ruebush",
   "license": "MIT",
   "dependencies": {
-    "restify": "^6.3.4"
+    "lodash": "^4.17.5",
+    "restify": "^6.3.4",
+    "restify-errors": "^6.0.0",
+    "restify-plugins": "^1.6.0"
   }
 }
