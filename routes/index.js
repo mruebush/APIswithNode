@@ -37,10 +37,8 @@ module.exports = function(server) {
 	server.get('/usersdb', (req, res, next) => {
 		db.any('select * from users')
 			.then(function (data) {
-			res.status(200)
-				.json({
-				data: data,
-				});
+			console.log(data);
+			res.send(200, data);
 			})
 			.catch(function (err) {
 			return next(err);
